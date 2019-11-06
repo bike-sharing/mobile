@@ -1,8 +1,23 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import { updateConnection } from '../redux/actions/auth-actions';
+import { updateBikeState } from '../redux/actions/bike-actions';
+import { connect } from 'react-redux';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.updateBikeState = this.updateBikeState.bind(this);
+  }
+
+  updateBikeState() {
+    const bikeId = Math.floor(Math.random() * 10);
+    this.props.updateBikeState(bikeId, 'booked', (err) => {
+      console.log(err);
+    });
+  }
+
   componentDidMount() {
     const ws = new WebSocket('wss://echo.websocket.org');
     ws.onopen = (ev) => {
@@ -11,13 +26,28 @@ export class HomeScreen extends Component {
     ws.onerror = (ev) => {
       this.props.updateConnection(null);
     };
+    ws.onclose = (ev) => {
+      this.props.updateConnection(null);
+    };
+    ws.onmessage = (ev) => {
+      this.handleIncomingData(JSON.parse(ev.data));
+    };
+  }
+
+  handleIncomingData(data) {
+    Alert.alert('Incoming data', JSON.stringify(data), [{ text: 'ok', onPress: () => {} }]);
   }
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Home Screen</Text>
         {this.props.connection && (
-          <Text>connected</Text>
+          <>
+            <Text>connected</Text>
+            <TouchableOpacity onPress={this.updateBikeState}>
+              <Text>Send Test Message</Text>
+            </TouchableOpacity>
+          </>
         )}
       </View>
     );
@@ -31,7 +61,7 @@ const mapStateToProps = (state) => ({
 });
 export default connect(
   mapStateToProps,
-  { updateConnection },
+  { updateConnection, updateBikeState },
 )(HomeScreen);
 
 const styles = StyleSheet.create({
