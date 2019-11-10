@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import { connect } from 'react-redux';
+import { updateConnection } from '../redux/actions/auth-actions';
 
 export class RootScreen extends Component {
   constructor(props) {
@@ -37,9 +39,7 @@ export class RootScreen extends Component {
           onPress={() => this.props.navigation.navigate('app')}
           background={TouchableNativeFeedback.SelectableBackground()}
           useForeground={true}>
-          <Text style={styles.button}>
-            Redirect Now
-          </Text>
+          <Text style={styles.button}>Redirect Now</Text>
         </TouchableNativeFeedback>
       </View>
     );
@@ -50,7 +50,14 @@ export class RootScreen extends Component {
   }
 }
 
-export default RootScreen;
+const mapStateToProps = (state) => ({
+  auth: state.login,
+  loading: state.loading,
+});
+export default connect(
+  mapStateToProps,
+  { updateConnection },
+)(RootScreen);
 
 const styles = StyleSheet.create({
   container: {

@@ -2,7 +2,7 @@
   Make use of loading state actions by mocking some authentication action creator
   This will be modified in the future with actual authentication logic
 */
-import { LOADING_STATE_CHANGE, AUTH_STATE_CHANGE } from '../action-types';
+import { LOADING_STATE_CHANGE, AUTH_STATE_CHANGE, CONNECTION_CHANGE } from '../action-types';
 
 export const loginUser = (loginData) => async (dispatch) => {
   dispatch({ type: LOADING_STATE_CHANGE, loading: true });
@@ -22,4 +22,8 @@ export const loginUser = (loginData) => async (dispatch) => {
 
   dispatch({ type: AUTH_STATE_CHANGE, auth });
   dispatch({ type: LOADING_STATE_CHANGE, loading: false });
+};
+
+export const updateConnection = (wsConnection) => (dispatch) => {
+  dispatch({ type: CONNECTION_CHANGE, connection: wsConnection });
 };
