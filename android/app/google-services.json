@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "371152605429",
+    "firebase_url": "https://bicyclesharing-4eafb.firebaseio.com",
+    "project_id": "bicyclesharing-4eafb",
+    "storage_bucket": "bicyclesharing-4eafb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371152605429:android:fbb7941ab0e6dd26d0b5bc",
+        "android_client_info": {
+          "package_name": "com.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371152605429-v2i9r1al42p4tiu993aem38neiehh5b3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mobile",
+            "certificate_hash": "e277e5ae6ce5c091363fe00308a7c12032fa645f"
+          }
+        },
+        {
+          "client_id": "371152605429-atgk7hcgbtiit2766hsj18624thk1h61.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7W_J9rfo4Z6xMBDzf8N1Nh4TFVmI6i34"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371152605429-atgk7hcgbtiit2766hsj18624thk1h61.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
