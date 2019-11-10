@@ -12,4 +12,21 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     flex: 1,
   },
+  logoContainer: {
+    paddingVertical: 20,
+  },
+  descriptionContainer: {
+    paddingBottom: 100,
+    alignItems: 'center',
+  },
+  description: {
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  socialContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginVertical: 5,
+    width: 100 + '%'
+  },
 });
