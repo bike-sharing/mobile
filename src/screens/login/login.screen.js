@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, KeyboardAvoidingView, ScrollView, Text } from 'react-native';
-import { loginUser } from '../../redux/actions/auth-actions';
-import CredentialInput from '../../components/forms/credential-input/credential-input';
+import { View, KeyboardAvoidingView, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import styles from './login.style';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { loginUser } from '../../redux/actions/auth-actions';
+import CredentialInput from '../../components/forms/credential-input/credential-input';
+import Logo from '../../components/logo/logo';
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class LoginScreen extends Component {
       <View style={styles.container}>
         <KeyboardAvoidingView style={styles.wrapper} enabled>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Text>Login Screen</Text>
+            <Logo size={'large'} />
             <CredentialInput
               ref={this.emailInput}
               icon={'envelope'}
