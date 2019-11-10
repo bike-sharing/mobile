@@ -19,14 +19,20 @@ export default StyleSheet.create({
     paddingBottom: 100,
     alignItems: 'center',
   },
+  separator: {
+    textAlign: 'center',
+    fontSize: 18,
+    marginVertical: 5,
+  },
   description: {
     fontSize: 18,
     textAlign: 'center',
   },
-  socialContainer: {
+  buttonsContainer: {
     display: 'flex',
     flexDirection: 'row',
     marginVertical: 5,
-    width: 100 + '%'
+    width: 100 + '%',
+    justifyContent: 'center',
   },
 });
