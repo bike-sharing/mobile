@@ -3,8 +3,8 @@ import { View, Text, TouchableNativeFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from './social-button.style.js';
 
-export default ({ media, style }) => (
-  <TouchableNativeFeedback useForeground={true}>
+export default ({ media, style, onPress }) => (
+  <TouchableNativeFeedback useForeground={true} onPress={onPress}>
     <View style={[styles.container, style]}>
       <View style={[styles.iconContainer, media === 'facebook' ? styles.fbIconContainer : styles.googleIconContainer]}>
         <Icon

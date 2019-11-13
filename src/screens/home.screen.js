@@ -4,6 +4,8 @@ import { updateConnection } from '../redux/actions/auth-actions';
 import { updateBikeState } from '../redux/actions/bike-actions';
 import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import firebase from 'react-native-firebase';
+
 
 export class HomeScreen extends Component {
   constructor(props) {
@@ -12,10 +14,15 @@ export class HomeScreen extends Component {
   }
 
   updateBikeState() {
+    firebase.auth().currentUser.getIdToken().then(token => {
+      console.log(token);
+    })
     const bikeId = Math.floor(Math.random() * 10);
     this.props.updateBikeState(bikeId, 'booked', (err) => {
       console.log(err);
     });
+
+
   }
 
   componentDidMount() {
@@ -41,6 +48,7 @@ export class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Home Screen</Text>
+        <Text style={styles.title}>{this.props.auth.displayName}</Text>
         {this.props.connection && (
           <>
             <Text>connected</Text>
@@ -55,7 +63,7 @@ export class HomeScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.login,
+  auth: state.auth,
   connection: state.connection,
   loading: state.loading,
 });

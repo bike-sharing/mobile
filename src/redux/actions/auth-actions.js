@@ -4,24 +4,9 @@
 */
 import { LOADING_STATE_CHANGE, AUTH_STATE_CHANGE, CONNECTION_CHANGE } from '../action-types';
 
-export const loginUser = (loginData) => async (dispatch) => {
-  dispatch({ type: LOADING_STATE_CHANGE, loading: true });
-
-  // make use of login data here
-  // and return an authenticated user
-  // for now it will return dummy data after 2sec
-  const auth = await new Promise((resolve) => {
-    setTimeout(() => {
-      const auth = {
-        id: 'dummy-user-id',
-        username: 'dummy-user-name',
-      };
-      resolve(auth);
-    }, 2000);
-  });
-
+export const updateLoginData = (auth) => (dispatch) => {
+  console.log('updating login data with', auth);
   dispatch({ type: AUTH_STATE_CHANGE, auth });
-  dispatch({ type: LOADING_STATE_CHANGE, loading: false });
 };
 
 export const updateConnection = (wsConnection) => (dispatch) => {
