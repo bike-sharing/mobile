@@ -15,7 +15,7 @@ export class HomeScreen extends Component {
 
   updateBikeState() {
     firebase.auth().currentUser.getIdToken().then(token => {
-      console.log(token);
+      console.log(JSON.stringify(token));
     })
     const bikeId = Math.floor(Math.random() * 10);
     this.props.updateBikeState(bikeId, 'booked', (err) => {
