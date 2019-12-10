@@ -1,3 +1,6 @@
+import { PermissionsAndroid } from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
+
 const fallbackBicyclesLocations = [
   {
     locationId: 'a9d5a74e-651c-447f-92c3-07c46d15f9ea',
@@ -39,11 +42,44 @@ export const fetchBicycleLocations = () =>
         );
       })
       .catch((err) => {
+        console.log('falling back to bicycles locations', err);
         resolve(fallbackBicyclesLocations);
       });
   });
 
-export const fetchUserLocation = () =>
-  new Promise((resolve, reject) => {
-    setTimeout(() => resolve(fallBackUserLocation));
+const requestGeolocationpermission = () =>
+  PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, {
+    title: 'Location access required',
+    message: 'BicycleSharing needs access to your location to provide the best experience',
   });
+
+const getCurrentPosition = () =>
+  new Promise((resolve, reject) => {
+    Geolocation.getCurrentPosition(
+      //Will give you the current location
+      (position) => {
+        resolve({
+          ...position.coords,
+          ...{
+            latitudeDelta: 0.015,
+            longitudeDelta: 0.0121,
+          },
+        });
+      },
+      (err) => reject(err),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+  });
+
+export const fetchUserLocation = async () => {
+  try {
+    const status = await requestGeolocationpermission();
+    if (status !== PermissionsAndroid.RESULTS.GRANTED) {
+      return fallBackUserLocation;
+    }
+    return await getCurrentPosition();
+  } catch (err) {
+    console.log('error while getting user location', err);
+    return fallBackUserLocation;
+  }
+};
