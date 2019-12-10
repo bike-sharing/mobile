@@ -13,7 +13,6 @@ import styles from './home.style';
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
-    this.updateBikeState = this.updateBikeState.bind(this);
     this.state = {
       region: {
         latitude: 37.78825,
