@@ -43,6 +43,7 @@ class LoginScreen extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView style={styles.wrapper} enabled>
