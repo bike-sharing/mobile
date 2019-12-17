@@ -1,6 +1,7 @@
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import HomeScreen from '../screens/home/home.screen';
-import { SettingsScreen } from '../screens/settings/settings.screen';
+import SettingsScreen from '../screens/settings/settings.screen';
+import ScannerScreen from '../screens/scanner/scanner.screen';
 
 const AppNavigator = createDrawerNavigator(
   {
@@ -10,6 +11,9 @@ const AppNavigator = createDrawerNavigator(
     settings: {
       screen: SettingsScreen,
     },
+    scan: {
+      screen: ScannerScreen
+    }
   },
   {
     initialRouteName: 'home',

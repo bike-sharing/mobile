@@ -39,9 +39,12 @@ class LoginScreen extends Component {
   handleLogin() {
     const email = this.emailInput.current.value;
     const password = this.passInput.current.value;
+    console.log(email, password);
     loginWithPassword(email, password)
       .then((user) => this._login(user))
       .catch((err) => {
+        this._showToast(err.code);
+        console.log(err);
         if (err.code === 'auth/user-not-found') {
           registerEmailAndPassword(email, password)
             .then((user) => this._login(user))
@@ -95,8 +98,7 @@ class LoginScreen extends Component {
               />
             </View>
             <View style={styles.buttonsContainer}>
-              <Button title={'Login'} />
-              <Button title={'Register'} style={{ marginLeft: 10 }} />
+              <Button title={'Login'} onPress={this.handleLogin.bind(this)} />
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
