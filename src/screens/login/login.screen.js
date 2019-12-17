@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, KeyboardAvoidingView, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { View, KeyboardAvoidingView, ScrollView, Text, ToastAndroid } from 'react-native';
 import { connect } from 'react-redux';
 import styles from './login.style';
 import { updateLoginData } from '../../redux/actions/auth-actions';
-import { loginWithFacebook, loginWithGoogle } from '../../lib/login';
+import { loginWithFacebook, loginWithGoogle, loginWithPassword, registerEmailAndPassword } from '../../lib/login';
 import CredentialInput from '../../components/forms/credential-input/credential-input';
 import Logo from '../../components/logo/logo';
 import SocialButton from '../../components/forms/social-button/social-button';
@@ -26,8 +26,12 @@ class LoginScreen extends Component {
     this.handleSocialLogin = this.handleSocialLogin.bind(this);
   }
 
+  _showToast(message) {
+    ToastAndroid.showWithGravity(message, 1000, ToastAndroid.BOTTOM);
+  }
+
   _login(user) {
-    console.log('loggin in with user', user);
+    this._showToast('Logged in successfully!');
     this.props.updateLoginData(user);
     this.props.navigation.navigate('app');
   }
@@ -35,7 +39,17 @@ class LoginScreen extends Component {
   handleLogin() {
     const email = this.emailInput.current.value;
     const password = this.passInput.current.value;
-    console.log({ email, password });
+    loginWithPassword(email, password)
+      .then((user) => this._login(user))
+      .catch((err) => {
+        if (err.code === 'auth/user-not-found') {
+          registerEmailAndPassword(email, password)
+            .then((user) => this._login(user))
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      });
   }
 
   handleSocialLogin(socialProvider) {
@@ -91,7 +105,4 @@ class LoginScreen extends Component {
   }
 }
 
-export default connect(
-  null,
-  { updateLoginData },
-)(LoginScreen);
+export default connect(null, { updateLoginData })(LoginScreen);

@@ -35,3 +35,16 @@ export const loginWithGoogle = () =>
       reject(err);
     }
   });
+
+export const loginWithPassword = (email, password) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const credential = firebase.auth.EmailAuthProvider.credential(email, string);
+      const auth = await firebase.auth().signInWithCredential(credential);
+      resolve(auth.user);
+    } catch (err) {
+      reject(err);
+    }
+  });
+
+export const registerEmailAndPassword = (email, password) => firebase.auth().createUserWithEmailAndPassword(email, password);

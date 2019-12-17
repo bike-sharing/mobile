@@ -37,8 +37,6 @@ class HomeScreen extends Component {
     const markers = this.state.bicycles.map((marker, i) => (
       <BicycleMarker coordinate={marker.coordinate} title={marker.title} key={i} />
     ));
-    console.log(markers);
-    console.log(this.state.bicycles);
 
     return (
       <View style={styles.container}>
